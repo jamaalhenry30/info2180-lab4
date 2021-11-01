@@ -65,8 +65,47 @@ $superheroes = [
 
 ?>
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+<?php
+    $arraylist = [];
+
+    $searched = $_GET["q"];
+
+    $count = 0;
+
+    
+
+    foreach($superheroes as $hero){
+        if(array_search($searched,$hero)){
+            $arraylist = $hero;
+            $count = 1;
+        }
+    }
+?>
+
+<?php if(!$searched==""){?>
+
+    <?php if($count == 1){ ?>
+    <h3> <?php echo($arraylist["alias"]); ?> </h3>
+
+    <h4> <?php echo("A.K.A ".$arraylist["name"]. "<br>"); ?> </h4>
+        
+    <p> <?php echo($arraylist["biography"]. "<br>"); ?> </p>
+
+    <?php 
+    }else{
+        echo ("Cannot Identify Hero");
+    } ?>
+    
+<?php 
+    }else{ ?>
+    <ul>
+    <?php foreach ($superheroes as $superhero): ?>
+
+    <li><?= $superhero['alias']; ?></li>
+
+    <?php endforeach; ?>
+
+    </ul>
+
+<?php } ?>
+
